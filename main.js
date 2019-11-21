@@ -26,9 +26,8 @@ var uniqueIDString = '';
 var pauseGame = false;
 var opponent = 0;
 
-/*--variables to tweak for game balance------------*/
-
 /*------------------------------------------------------------------------*/
+
 // make all upgrades visible for game tweaking
 
 /*
@@ -45,6 +44,8 @@ $("#upgrade-heading").css("visibility", "visible");
 $("#winrate").css("visibility", "visible"); 
 $("#hands-played").css("visibility", "visible"); 
 */
+
+/*--variables to tweak for game balance------------*/
 
 // upgrade starting costs
 var autoplayCost = 50;
@@ -79,7 +80,7 @@ $('#upgrade-4-level').text(variance + ' Variance');
 $('#stakes').text('$' + stakes.toLocaleString('en'));
 $('#winrate').html(winrate + ' max bets per<br>100 hands');
 
-$('#action').fadeOut(0).css('opacity', '1'); // set #action as 'fadeOut' and opacity back to 1
+$('#action').fadeOut(0).css('opacity', '1');
 $('#hands-played').text(handsPlayed + ' hands played');
 
 /*------------------------------------------------------------------------*/
@@ -100,11 +101,11 @@ $('#higher-stakes').mousedown(function() {
 			// this will always return a remainder of 4 if the stake is a $400, $4000, etc. Then we multiply the stake by 2.5x to get to $1000 etc
 			stakes = stakes * 2.5;
 		} else {
-			stakes = stakes * 2; // if stake is $1000 or $2000, can just 2x the stake
+			stakes = stakes * 2;
 		}
 		$('#stakes').text('$' + stakes.toLocaleString('en'));
 
-		winrate = Math.round((winrate - winratePerStake) * 10) / 10; // the math.round prevents 10.000000002 type output
+		winrate = Math.round((winrate - winratePerStake) * 10) / 10; // the math.round prevents 10.000000002 output
 		averageBetSize = calcAveBetSize(variance, stakes);
 		winPercent = calcWinPercent(winrate, stakes, averageBetSize);
 		$('#winrate').html(winrate + ' max bets per<br>100 hands');
@@ -121,7 +122,7 @@ $('#lower-stakes').mousedown(function() {
 		}
 		$('#stakes').text('$' + stakes.toLocaleString('en'));
 
-		winrate = Math.round((winrate + winratePerStake) * 10) / 10; // the math.round prevents 10.000000002 type output
+		winrate = Math.round((winrate + winratePerStake) * 10) / 10; // the math.round prevents 10.000000002 output
 		averageBetSize = calcAveBetSize(variance, stakes);
 		winPercent = calcWinPercent(winrate, stakes, averageBetSize);
 		$('#winrate').html(winrate + ' max bets per<br>100 hands');
@@ -131,7 +132,7 @@ $('#lower-stakes').mousedown(function() {
 $('#auto-play-box').mousedown(function() {
 	if ($('#auto-play-checked').css('visibility') === 'hidden') {
 		$('#auto-play-checked').css('visibility', 'visible');
-		$('#play-button').css('opacity', '0.5');
+		$('#play-button').css('opacity', '0.5').prop('disabled', true).addClass('nohover');
 	} else if ($('#auto-play-checked').css('visibility') === 'visible') {
 		$('#auto-play-checked').css('visibility', 'hidden');
 		$('#play-button').css('opacity', '1');
