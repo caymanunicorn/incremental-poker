@@ -555,6 +555,7 @@ function loseHeadAnimation() {
 function endGame() {
 	$('#grey-background').css('visibility', 'visible');
 	$('#broke').css('visibility', 'visible');
+	// allows the hammer image to follow the mouse
 	$('#hammer').css('left', mouseX - parseFloat($('#hammer').css('width')) / 10 + 'px');
 	$('#hammer').css('top', mouseY - parseFloat($('#hammer').css('height')) * 1.09 + 'px');
 	$('body').css('cursor', 'none');
@@ -563,6 +564,7 @@ function endGame() {
 		$('#hammer').css('top', event.pageY - parseFloat($('#hammer').css('height')) * 1.09 + 'px');
 	});
 
+	// slams the hammer down
 	$(document).mousedown(function() {
 		$('#hammer').css('transform', 'rotate(0deg)');
 	});
@@ -584,6 +586,8 @@ function toggleFunction() {
 }
 
 function win() {
+	// I'm creating a unique ID using my own cool high level cryptographic code so that people can post the ID
+	// to reddit and I'll know they indeed won the game (assuming they didn't crack my code)
 	var randomOneToThousand = Math.ceil(Math.random() * 1000);
 	var uniqueVar1 = uniqueID * randomOneToThousand;
 	var uniqueVar2 = handsPlayed * randomOneToThousand;
