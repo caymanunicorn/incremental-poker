@@ -26,6 +26,16 @@ var uniqueIDString = '';
 var pauseGame = false;
 var opponent = 0;
 
+var dealCardSound = new Audio();
+var slideChipsSound = new Audio();
+var loseSound = new Audio();
+var winSound = new Audio();
+dealCardSound.src = 'deal-card-short.mp3';
+slideChipsSound.src = 'slide-chips.mp3';
+loseSound.src = 'lose-sound.mp3';
+winSound.src = 'win-sound.mp3';
+
+var soundCount = 0;
 /*------------------------------------------------------------------------*/
 
 // make all upgrades visible for game tweaking
@@ -325,6 +335,11 @@ function dealCards() {
 		dealSpeed,
 		dealCards // a recursive function using the callback function which continues until dealCardsCount exceeds the number of cards
 	);
+	if (dealCardsCount < 13 && dealCardsCount > 0) {
+		dealCardSound.play();
+		soundCount++;
+		console.log(soundCount);
+	}
 	dealCardsCount++;
 	if (dealCardsCount >= $('.cards').length) {
 		return; // ends the recursive function once dealCardsCount equals or exceeds the number of items in the .cards array
@@ -362,7 +377,7 @@ function call() {
 		top: '37%',
 		left: '43%'
 	});
-
+	slideChipsSound.play();
 	// animate my bet to the center
 	$('#my-bet').css('visibility', 'visible').text('$' + betSize.toLocaleString('en')).animate({
 		top: '38%',
@@ -434,6 +449,7 @@ function fadeCards() {
 }
 
 function winAnimation() {
+	winSound.play();
 	// show WIN text result and run winHeadAnimation
 	$('#win-or-loss')
 		.text('WIN')
@@ -443,6 +459,7 @@ function winAnimation() {
 		.fadeIn(winHeadAnimation)
 		.delay(700)
 		.fadeOut(function() {
+			slideChipsSound.play();
 			// move my poker chips to me
 			$('#poker-chips-mine').animate({
 				top: '52%',
@@ -470,6 +487,7 @@ function winAnimation() {
 }
 
 function lossAnimation() {
+	loseSound.play();
 	// display LOSS text result and run loseHeadAnimation
 	$('#win-or-loss')
 		.text('LOSS')
@@ -479,6 +497,7 @@ function lossAnimation() {
 		.fadeIn(loseHeadAnimation)
 		.delay(700)
 		.fadeOut(function() {
+			slideChipsSound.play();
 			// animating both mine and their poker chips to the opponent's chips position
 			$('#poker-chips-mine').animate({
 				top: theirChipsTop[opponent],
