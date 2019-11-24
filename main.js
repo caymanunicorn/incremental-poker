@@ -30,10 +30,16 @@ var dealCardSound = new Audio();
 var slideChipsSound = new Audio();
 var loseSound = new Audio();
 var winSound = new Audio();
+var smashPiggySound = new Audio();
+var brokeSound = new Audio();
+var billionaireMusic = new Audio();
 dealCardSound.src = 'deal-card.wav';
 slideChipsSound.src = 'slide-chips.mp3';
 loseSound.src = 'lose-sound.mp3';
 winSound.src = 'win-sound.mp3';
+smashPiggySound.src = 'smash-piggy-bank.mp3';
+brokeSound.src = 'broke.mp3';
+billionaireMusic.src = 'billionaire.mp3';
 
 var soundCount = 0;
 /*------------------------------------------------------------------------*/
@@ -66,7 +72,7 @@ var upgrade3Cost = 100;
 var upgrade4Cost = 1000;
 
 var winrate = 15;
-var bankroll = 200;
+var bankroll = 999999999;
 var variance = 20;
 var winratePerStake = 1.2;
 var winratePerHandReadingLevel = 0.7;
@@ -572,6 +578,7 @@ function loseHeadAnimation() {
 }
 
 function endGame() {
+	brokeSound.play();
 	$('#grey-background').css('visibility', 'visible');
 	$('#broke').css('visibility', 'visible');
 	// allows the hammer image to follow the mouse
@@ -596,6 +603,7 @@ function endGame() {
 		$('body').css('cursor', 'auto');
 		$('#grey-background').css('visibility', 'hidden');
 		$('#broke').css('visibility', 'hidden');
+		smashPiggySound.play();
 		resetGame();
 	});
 }
@@ -615,6 +623,7 @@ function win() {
 	$('#billionaire-hands').text(handsPlayed.toLocaleString('en'));
 	$('#grey-background').css('visibility', 'visible');
 	$('#billionaire').css('visibility', 'visible');
+	billionaireMusic.play();
 	var toggleForever = setInterval(toggleFunction, 150);
 }
 
