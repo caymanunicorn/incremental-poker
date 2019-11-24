@@ -226,6 +226,14 @@ $('#upgrade-4-button').mousedown(function() {
 	}
 });
 
+$('#audio-symbol').mousedown(function() {
+	$('#no-symbol').css('visibility', 'visible');
+});
+
+$('#no-symbol').mousedown(function() {
+	$('#no-symbol').css('visibility', 'hidden');
+});
+
 /*------------------------------------------------------------------------*/
 
 // Functions
@@ -342,9 +350,9 @@ function dealCards() {
 		dealCards // a recursive function using the callback function which continues until dealCardsCount exceeds the number of cards
 	);
 	if (dealCardsCount < 13 && dealCardsCount > 0) {
-		dealCardSound.play();
-		soundCount++;
-		console.log(soundCount);
+		if ($('#no-symbol').css('visibility') === 'hidden') {
+			dealCardSound.play();
+		}
 	}
 	dealCardsCount++;
 	if (dealCardsCount >= $('.cards').length) {
@@ -383,7 +391,10 @@ function call() {
 		top: '37%',
 		left: '43%'
 	});
-	slideChipsSound.play();
+	if ($('#no-symbol').css('visibility') === 'hidden') {
+		slideChipsSound.play();
+	}
+
 	// animate my bet to the center
 	$('#my-bet').css('visibility', 'visible').text('$' + betSize.toLocaleString('en')).animate({
 		top: '38%',
@@ -455,7 +466,9 @@ function fadeCards() {
 }
 
 function winAnimation() {
-	winSound.play();
+	if ($('#no-symbol').css('visibility') === 'hidden') {
+		winSound.play();
+	}
 	// show WIN text result and run winHeadAnimation
 	$('#win-or-loss')
 		.text('WIN')
@@ -465,7 +478,9 @@ function winAnimation() {
 		.fadeIn(winHeadAnimation)
 		.delay(700)
 		.fadeOut(function() {
-			slideChipsSound.play();
+			if ($('#no-symbol').css('visibility') === 'hidden') {
+				slideChipsSound.play();
+			}
 			// move my poker chips to me
 			$('#poker-chips-mine').animate({
 				top: '52%',
@@ -493,7 +508,9 @@ function winAnimation() {
 }
 
 function lossAnimation() {
-	loseSound.play();
+	if ($('#no-symbol').css('visibility') === 'hidden') {
+		loseSound.play();
+	}
 	// display LOSS text result and run loseHeadAnimation
 	$('#win-or-loss')
 		.text('LOSS')
@@ -503,7 +520,9 @@ function lossAnimation() {
 		.fadeIn(loseHeadAnimation)
 		.delay(700)
 		.fadeOut(function() {
-			slideChipsSound.play();
+			if ($('#no-symbol').css('visibility') === 'hidden') {
+				slideChipsSound.play();
+			}
 			// animating both mine and their poker chips to the opponent's chips position
 			$('#poker-chips-mine').animate({
 				top: theirChipsTop[opponent],
@@ -578,7 +597,9 @@ function loseHeadAnimation() {
 }
 
 function endGame() {
-	brokeSound.play();
+	if ($('#no-symbol').css('visibility') === 'hidden') {
+		brokeSound.play();
+	}
 	$('#grey-background').css('visibility', 'visible');
 	$('#broke').css('visibility', 'visible');
 	// allows the hammer image to follow the mouse
@@ -603,7 +624,9 @@ function endGame() {
 		$('body').css('cursor', 'auto');
 		$('#grey-background').css('visibility', 'hidden');
 		$('#broke').css('visibility', 'hidden');
-		smashPiggySound.play();
+		if ($('#no-symbol').css('visibility') === 'hidden') {
+			smashPiggySound.play();
+		}
 		resetGame();
 	});
 }
