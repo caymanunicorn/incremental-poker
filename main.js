@@ -72,7 +72,7 @@ var upgrade3Cost = 100;
 var upgrade4Cost = 1000;
 
 var winrate = 15;
-var bankroll = 999999999;
+var bankroll = 200;
 var variance = 20;
 var winratePerStake = 1.2;
 var winratePerHandReadingLevel = 0.7;
